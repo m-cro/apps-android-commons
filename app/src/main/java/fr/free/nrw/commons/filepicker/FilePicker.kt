@@ -21,6 +21,7 @@ import android.os.Build
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import java.io.FileOutputStream
+import timber.log.Timber
 
 
 object FilePicker : Constants {
@@ -107,7 +108,7 @@ object FilePicker : Constants {
             grantWritePermission(context, intent, capturedImageUri)
             intent.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri)
         } catch (e: Exception) {
-            e.printStackTrace()
+            Timber.e(e)
         }
 
         return intent
@@ -217,10 +218,10 @@ object FilePicker : Constants {
         return try {
             getFilesFromGalleryPictures(data, activity)
         } catch (e: IOException) {
-            e.printStackTrace()
+            Timber.e(e)
             emptyList()
         } catch (e: SecurityException) {
-            e.printStackTrace()
+            Timber.e(e)
             emptyList()
         }
     }
@@ -285,7 +286,7 @@ object FilePicker : Constants {
                 val files = getFilesFromGalleryPictures(result.data, activity)
                 callbacks.onImagesPicked(files, ImageSource.DOCUMENTS, restoreType(activity))
             } catch (e: Exception) {
-                e.printStackTrace()
+                Timber.e(e)
                 callbacks.onImagePickerError(e, ImageSource.DOCUMENTS, restoreType(activity))
             }
         } else {
@@ -334,7 +335,7 @@ object FilePicker : Constants {
                 val files = getFilesFromCustomSelector(result.data, activity)
                 callbacks.onImagesPicked(files, ImageSource.CUSTOM_SELECTOR, restoreType(activity))
             } catch (e: Exception) {
-                e.printStackTrace()
+                Timber.e(e)
                 callbacks.onImagePickerError(e, ImageSource.CUSTOM_SELECTOR, restoreType(activity))
             }
         } else {
@@ -380,7 +381,7 @@ object FilePicker : Constants {
                 val files = getFilesFromGalleryPictures(result.data, activity)
                 callbacks.onImagesPicked(files, ImageSource.GALLERY, restoreType(activity))
             } catch (e: Exception) {
-                e.printStackTrace()
+                Timber.e(e)
                 callbacks.onImagePickerError(e, ImageSource.GALLERY, restoreType(activity))
             }
         } else {
@@ -477,7 +478,7 @@ object FilePicker : Constants {
                     .remove(KEY_PHOTO_URI)
                     .apply()
             } catch (e: Exception) {
-                e.printStackTrace()
+                Timber.e(e)
                 callbacks.onImagePickerError(e, ImageSource.CAMERA_IMAGE, restoreType(activity))
             }
         } else {
