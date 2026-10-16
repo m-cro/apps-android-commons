@@ -75,8 +75,8 @@ class BookmarkItemsContentProvider : CommonsDaggerContentProvider() {
      * Handles the insertion of new bookmark items record to local SQLite Database
      */
     override fun insert(uri: Uri, contentValues: ContentValues?): Uri? {
-        val id =
-            contentValues?.let { requireDb().insert(TABLE_NAME, SQLiteDatabase.CONFLICT_NONE, it) }
+        val values = contentValues ?: return null
+        val id = requireDb().insert(TABLE_NAME, SQLiteDatabase.CONFLICT_NONE, values)
         context?.contentResolver?.notifyChange(uri, null)
         return "$BASE_URI/$id".toUri()
     }
