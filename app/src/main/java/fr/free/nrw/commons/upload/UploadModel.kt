@@ -16,6 +16,8 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
+import java.io.FileNotFoundException
+import java.io.IOException
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Named
@@ -164,9 +166,11 @@ class UploadModel @Inject internal constructor(
 
     fun buildContributions(): Observable<Contribution> {
         return Observable.fromIterable(items).map { item: UploadItem ->
-            val imageSHA1 = getSHA1(
-                context.contentResolver.openInputStream(item.contentUri!!)!!
-            )
+            val contentUri = item.contentUri
+                ?: throw IOException("Missing content URI for upload item")
+            val imageStream = context.contentResolver.openInputStream(contentUri)
+                ?: throw FileNotFoundException("Unable to open upload content: $contentUri")
+            val imageSHA1 = getSHA1(imageStream)
             val contribution = Contribution(
                 item,
                 sessionManager,
