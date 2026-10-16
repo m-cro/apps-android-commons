@@ -108,8 +108,8 @@ object FileUtils {
         var deletedAll = true
         if (file != null) {
             if (file.isDirectory) {
-                val children = file.list()
-                for (child in children!!) {
+                val children = file.list() ?: return false
+                for (child in children) {
                     deletedAll = deleteFile(File(file, child)) && deletedAll
                 }
             } else {
