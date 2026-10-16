@@ -1759,7 +1759,7 @@ class MediaDetailFragment : CommonsDaggerSupportFragment(), CategoryEditHelper.C
     }
 
     private fun handleDeletionError(throwable: Throwable) {
-        throwable.printStackTrace()
+        Timber.e(throwable)
         disableProgressBar()
         checkAndClearDeletionFlag()
     }
