@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import kotlin.math.abs
+import timber.log.Timber
 
 /**
  * Class for detecting swipe gestures
@@ -75,7 +76,7 @@ open class OnSwipeTouchListener(
                     }
                 }
             } catch (exception: Exception) {
-                exception.printStackTrace()
+                Timber.e(exception)
             }
             return false
         }
