@@ -110,7 +110,7 @@ object PickedFiles : Constants {
                     copyFile(fileToCopy, dstFile)
                     copiedFiles.add(dstFile)
                 } catch (e: IOException) {
-                    e.printStackTrace()
+                    Timber.e(e)
                 }
                 index++
             }
