@@ -33,7 +33,7 @@ class CategoryApi @Inject constructor(
         val response = okHttpClient.newCall(request).execute()
         val body = response.body ?: return@fromCallable emptyList<CategoryItem>()
 
-        val apiResponse = gson.fromJson(body.charStream(), MwQueryResponse::class.java)
+        val apiResponse = body.use { gson.fromJson(it.charStream(), MwQueryResponse::class.java) }
         val categories: MutableSet<CategoryItem> = mutableSetOf()
         if (apiResponse?.query() != null && apiResponse.query()!!.pages() != null) {
             for (page in apiResponse.query()!!.pages()!!) {
