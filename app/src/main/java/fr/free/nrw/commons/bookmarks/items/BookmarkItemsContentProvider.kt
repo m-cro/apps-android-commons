@@ -52,7 +52,7 @@ class BookmarkItemsContentProvider : CommonsDaggerContentProvider() {
     ): Int {
         val rowsUpdated: Int =
         if (selection.isNullOrEmpty()) {
-            val id = uri.lastPathSegment!!.toInt()
+            val id = uri.lastPathSegment?.toIntOrNull() ?: return 0
             contentValues?.let {
                 requireDb().update(
                     TABLE_NAME,
