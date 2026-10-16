@@ -8,6 +8,7 @@ import okio.ForwardingSink
 import okio.Sink
 import okio.buffer
 import java.io.IOException
+import timber.log.Timber
 
 /**
  * Decorates an OkHttp request body to count the number of bytes written when writing it. Can
@@ -30,7 +31,7 @@ class CountingRequestBody(
         try {
             return delegate.contentLength()
         } catch (e: IOException) {
-            e.printStackTrace()
+            Timber.e(e)
         }
         return -1
     }
