@@ -1619,7 +1619,7 @@ class NearbyParentFragment : CommonsDaggerSupportFragment(),
             fos.close()
             return true
         } catch (e: IOException) {
-            e.printStackTrace()
+            Timber.e(e)
             return false
         }
     }
