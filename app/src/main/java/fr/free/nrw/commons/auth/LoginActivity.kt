@@ -180,7 +180,7 @@ class LoginActivity : AccountAuthenticatorActivity() {
                 progressDialog!!.dismiss()
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            Timber.e(e)
         }
         with(binding!!) {
             loginUsername.removeTextChangedListener(textWatcher)
