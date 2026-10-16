@@ -112,7 +112,12 @@ class CsrfTokenClient(
                     if (call.isCanceled) {
                         return
                     }
-                    cb.success(response.body()!!.query()!!.csrfToken())
+                    val token = response.body()?.query()?.csrfToken()
+                    if (token.isNullOrEmpty()) {
+                        cb.failure(IllegalStateException("CSRF response did not include a token"))
+                    } else {
+                        cb.success(token)
+                    }
                 }
 
                 override fun onFailure(
