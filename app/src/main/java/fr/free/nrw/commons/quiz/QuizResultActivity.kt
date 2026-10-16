@@ -26,6 +26,7 @@ import java.io.FileOutputStream
 import fr.free.nrw.commons.R
 import fr.free.nrw.commons.contributions.MainActivity
 import fr.free.nrw.commons.utils.applyEdgeToEdgeAllInsets
+import timber.log.Timber
 
 
 /**
@@ -177,7 +178,7 @@ class QuizResultActivity : AppCompatActivity() {
             }
             startActivity(Intent.createChooser(intent, getString(R.string.share_image_via)))
         } catch (e: Exception) {
-            e.printStackTrace()
+            Timber.e(e)
         }
     }
 
